@@ -6,7 +6,12 @@ import rego.v1
 approved_repos := ["registry.empresa.com/", "docker.io/empresa/"]
 
 deny contains msg if {
-	input.kind == "Dockerfile"
-	not startswith(input.image, approved_repos)
-	msg := sprintf("La imagen '%s' no proviene de un repositorio aprovado", [input.image])
+    input.kind == "Dockerfile"
+    not approved(input.image)
+    msg := sprintf("La imagen '%s' no proviene de un repositorio aprobado", [input.image])
+}
+
+approved(image) if {
+    some i
+    startswith(image, approved_repos[i])
 }
