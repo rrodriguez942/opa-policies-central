@@ -7,7 +7,6 @@ import future.keywords.in
 # Tipos de máquina permitidos
 allowed_machine_types := ["e2-micro", "e2-small", "f1-micro"]
 
-# Todas las validaciones en una sola regla deny
 deny contains msg if {
 	some resource in input.resource_changes
 
